@@ -186,7 +186,7 @@ class Document(models.Model):
                 self.approval_l1_message = f"📝 Revision Requested by {self.level1_approver.username}" 
                 send_mail(
                     'Document Requested for Revision',
-                    f'Document ID {self.id} has been rejected and requires revision. Thank you.',
+                    f'Document ID {self.id} requires revision. Thank you.',
                     f'From {self.level1_approver.username}',  # Replace with your sender email
                     [self.uploader.email],  # Assuming uploader has an email field
                     fail_silently=False,
@@ -195,7 +195,7 @@ class Document(models.Model):
                 self.approval_l1_message = f"🔁 Returned with Remarks by {self.level1_approver.username}" 
                 send_mail(
                     'Document Requested for Revision',
-                    f'Document ID {self.id} has been rejected and requires revision. Thank you.',
+                    f'Document ID {self.id} requires revision. Thank you.',
                     f'From {self.level1_approver.username}',  # Replace with your sender email
                     [self.uploader.email],  # Assuming uploader has an email field
                     fail_silently=False,
@@ -245,7 +245,7 @@ class Document(models.Model):
     def send_approval_email(self, approver):
         # Fetch document details (subject and id) after the document has been saved
         subject = f'Document Approval Request: {self.subject} (ID: {self.id})'
-        message = f'Good Day {approver.username},\n\nYou have a new pending document approval. "{self.document_type}".\nDocument ID: {self.id}\n The file approvers are "{self.level1_approver}", "{self.level2_approver}","{self.level3_approver}"\nBest regards,\nNDC DTS'
+        message = f'Good Day Mr./Ms. {approver.username},\n\nYou have a new pending document approval. "{self.document_type}".\nDocument ID: {self.id}\nThe file approvers are "{self.level1_approver}", "{self.level2_approver}","{self.level3_approver}"\nBest regards,\nNDC DTS'
         recipient_list = [approver.email]
 
         # Send the email
